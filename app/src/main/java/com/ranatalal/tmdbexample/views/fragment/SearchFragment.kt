@@ -15,6 +15,7 @@ import com.ranatalal.tmdbexample.R
 import com.ranatalal.tmdbexample.databinding.FragmentSearchBinding
 import com.ranatalal.tmdbexample.helper.UIHelper
 import com.ranatalal.tmdbexample.viewmodel.MovieViewModel
+import com.ranatalal.tmdbexample.views.activities.MovieDetailActivity
 import com.ranatalal.tmdbexample.views.adapter.MovieListAdapter
 import com.ranatalal.tmdbexample.views.adapters.MovieLoadStateAdapter
 import kotlinx.coroutines.flow.collectLatest
@@ -41,13 +42,14 @@ class SearchFragment : BaseFragment(), TextWatcher {
         // Inflate the layout for this fragment
         binding =
             FragmentSearchBinding.inflate(inflater, container, false)
+        initData()
 
+        return binding!!.root
+    }
+
+    private fun initData() {
+        uiHelper.showSoftKeyboard(requireContext(),binding!!.searchBar)
         binding!!.viewModel = movieViewModel
-
-//back press
-
-        uiHelper.hideSoftKeyboard(requireContext(), binding!!.searchBar)
-
 
         movieViewModel.hasSearchTextClearClick.observe(viewLifecycleOwner) {
             binding!!.searchBar.setText("")
@@ -90,11 +92,12 @@ class SearchFragment : BaseFragment(), TextWatcher {
             header = MovieLoadStateAdapter(),
             footer = MovieLoadStateAdapter()
         )
-
-
-
-
-
+        movieListAdapter.apply {
+            listener = { item, position ->
+                uiHelper.openActivityAndMovieId(requireActivity(),
+                    MovieDetailActivity::class.java, item.id!!)
+            }
+        }
 
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -113,9 +116,7 @@ class SearchFragment : BaseFragment(), TextWatcher {
 
         }
 
-        return binding!!.root
     }
-
 
     private fun updatedSubredditFromInput() {
         binding!!.searchBar.text.trim().toString().let {

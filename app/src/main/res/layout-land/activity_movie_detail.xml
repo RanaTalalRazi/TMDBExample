@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="model"
+            type="com.ranatalal.tmdbexample.views.models.MovieListDetailResponseModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".views.activities.MovieDetailActivity">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:loadBackDropImage="@{model.getBackDrop()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/banner_placeholder" />
+
+                <TextView
+                    android:id="@+id/titleView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@{model.title}"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                    app:layout_constraintStart_toStartOf="@+id/imageView2"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+                <TextView
+                    android:id="@+id/voteAverageHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/vote_average"
+                    app:layout_constraintStart_toStartOf="@+id/titleView"
+                    app:layout_constraintTop_toBottomOf="@+id/titleView" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.voteAverage.toString()+@string/percentage_sign}"
+                    app:layout_constraintBottom_toBottomOf="@+id/voteAverageHeader"
+                    app:layout_constraintEnd_toEndOf="@+id/titleView"
+                    app:layout_constraintTop_toTopOf="@+id/voteAverageHeader" />
+
+                <TextView
+                    android:id="@+id/countHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/count"
+                    app:layout_constraintStart_toStartOf="@+id/voteAverageHeader"
+                    app:layout_constraintTop_toBottomOf="@+id/voteAverageHeader" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.voteCount.toString()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/countHeader"
+                    app:layout_constraintEnd_toEndOf="@+id/textView5"
+                    app:layout_constraintTop_toTopOf="@+id/countHeader" />
+
+                <TextView
+                    android:id="@+id/revenueHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/revenue"
+                    app:layout_constraintStart_toStartOf="@+id/countHeader"
+                    app:layout_constraintTop_toBottomOf="@+id/countHeader" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.revenue.toString()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/revenueHeader"
+                    app:layout_constraintEnd_toEndOf="@+id/textView5"
+                    app:layout_constraintTop_toTopOf="@+id/revenueHeader" />
+
+                <TextView
+                    android:id="@+id/durationHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/duration"
+                    app:layout_constraintStart_toStartOf="@+id/revenueHeader"
+                    app:layout_constraintTop_toBottomOf="@+id/revenueHeader" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.runtime.toString()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/durationHeader"
+                    app:layout_constraintEnd_toEndOf="@+id/textView5"
+                    app:layout_constraintTop_toTopOf="@+id/durationHeader" />
+
+                <TextView
+                    android:id="@+id/overview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{model.overview}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textView5"
+                    app:layout_constraintStart_toStartOf="@+id/durationHeader"
+                    app:layout_constraintTop_toBottomOf="@+id/durationHeader" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

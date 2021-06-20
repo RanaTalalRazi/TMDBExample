@@ -38,14 +38,12 @@ class MainActivity : BaseActivity() {
         lifecycleScope.launchWhenCreated {
             movieListAdapter.loadStateFlow.collectLatest { loadStates ->
                 if (loadStates.refresh is LoadState.Error) {
-//                    if (!binding!!.searchBar.text.toString().equals(""))
                     uiHelper.showLongToastInCenter(
                         this@MainActivity,
                         (loadStates.refresh as LoadState.Error).error.message
                             ?: ""
                     )
                 }
-
             }
         }
 
@@ -55,18 +53,40 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        movieViewModel.hasSearchClick.observe(this,{
-            uiHelper.openFragment(this,R.id.parentLayout,SearchFragment())
-        })
 
         binding!!.movieList.adapter = movieListAdapter.withLoadStateHeaderAndFooter(
             header = MovieLoadStateAdapter(),
             footer = MovieLoadStateAdapter()
         )
+
+        movieViewModel.hasSearchClick.observe(this, {
+            uiHelper.openFragment(this, R.id.parentLayout, SearchFragment())
+        })
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            binding!!.swipeLayout.setColorSchemeColors(
+                resources.getColor(R.color.app_theme_dark, resources.newTheme())
+            )
+        } else {
+            binding!!.swipeLayout.setColorSchemeColors(
+                resources.getColor(R.color.app_theme_dark)
+            )
+        }
+
         movieListAdapter.apply {
             listener = { item, position ->
-                uiHelper.openActivityAndMovieId(this@MainActivity,MovieDetailActivity::class.java, item.id!!)
+                uiHelper.openActivityAndMovieId(
+                    this@MainActivity,
+                    MovieDetailActivity::class.java,
+                    item.id!!
+                )
             }
+        }
+
+        binding!!.swipeLayout.setOnRefreshListener {
+            movieListAdapter.refresh()
+            binding!!.swipeLayout.isRefreshing = false
+
         }
     }
 

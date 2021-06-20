@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,12 +10,11 @@
             type="com.ranatalal.tmdbexample.viewmodel.MovieViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/parentLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.activities.MainActivity">
+        android:background="@color/white"
+        android:onClick="@{null}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/search_bar_layout"
@@ -23,7 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
+            <EditText
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,18 +33,31 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/search_layout_bg"
+                android:drawableStart="@drawable/ic_baseline_search_24"
                 android:drawablePadding="@dimen/normal_margin"
-                android:onClick="@{()->viewModel.searchClick()}"
+                android:hint="Search..."
+                android:imeOptions="actionSearch"
                 android:padding="@dimen/min_margin"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:singleLine="true"
-                android:text="Search..."
-                app:drawableStartCompat="@drawable/ic_baseline_search_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/clearButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{()->viewModel.searchTextClearClick()}"
+                android:padding="5dp"
+                android:src="@drawable/ic_cross_green"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/search_bar"
+                app:layout_constraintEnd_toEndOf="@+id/search_bar"
+                app:layout_constraintTop_toTopOf="@+id/search_bar" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -59,24 +73,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
 
-
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/movieList"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="1dp"
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/min_margin"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:spanCount="3" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
