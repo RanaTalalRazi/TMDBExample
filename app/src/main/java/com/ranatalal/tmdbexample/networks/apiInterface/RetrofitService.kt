@@ -1,6 +1,7 @@
 package  com.ranatalal.tmdbexample.networks.apiInterface
 
 import com.ranatalal.tmdbexample.networks.response.MovieApiResponse
+import com.ranatalal.tmdbexample.views.models.MovieListDetailResponseModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -20,6 +21,12 @@ interface RetrofitService {
         @Query( "api_key") apiKey: String,
         @Query("page") page: Int? = null,
     ): Response<MovieApiResponse>
+
+    @GET("movie/{id}?language=en-US")
+    suspend fun getMovieDetail(
+        @Path(value = "id", encoded = true) id: Int,
+        @Query("api_key") apiKey: String
+    ): Response<MovieListDetailResponseModel>
 
 
 }

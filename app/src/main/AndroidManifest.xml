@@ -3,6 +3,7 @@
     package="com.ranatalal.tmdbexample">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".application.ApplicationState"
         android:allowBackup="true"
@@ -11,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TMDBExample">
+        <activity android:name=".views.activities.MovieDetailActivity"/>
         <activity android:name=".views.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

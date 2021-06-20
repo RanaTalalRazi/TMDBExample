@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import com.ranatalal.tmdbexample.utils.ConstUtils
 import java.io.Serializable
 
-class MovieListResponseModel : Serializable {
+class MovieListDetailResponseModel : Serializable {
 
     @SerializedName("adult")
     @Expose
@@ -15,13 +15,21 @@ class MovieListResponseModel : Serializable {
     @Expose
     var backdropPath: String? = ""
 
-    @SerializedName("genre_ids")
+    @SerializedName("budget")
     @Expose
-    var genreIds: List<String>? = null
+    var budget: Int? = null
 
     @SerializedName("id")
     @Expose
     var id: Int? = 0
+
+    @SerializedName("imdb_id")
+    @Expose
+    var imdbId: String? = ""
+
+    @SerializedName("homepage")
+    @Expose
+    var homepage: String? = ""
 
     @SerializedName("original_language")
     @Expose
@@ -46,6 +54,22 @@ class MovieListResponseModel : Serializable {
     @SerializedName("release_date")
     @Expose
     var releaseDate: String? = ""
+
+    @SerializedName("revenue")
+    @Expose
+    var revenue: String? = ""
+
+    @SerializedName("runtime")
+    @Expose
+    var runtime: Int? = null
+
+    @SerializedName("status")
+    @Expose
+    var status: String? = ""
+
+    @SerializedName("tagline")
+    @Expose
+    var tagline: String? = ""
 
     @SerializedName("title")
     @Expose

@@ -64,7 +64,9 @@ class MainActivity : BaseActivity() {
             footer = MovieLoadStateAdapter()
         )
         movieListAdapter.apply {
-            listener = { item, position -> }
+            listener = { item, position ->
+                uiHelper.openActivityAndMovieId(this@MainActivity,MovieDetailActivity::class.java, item.id!!)
+            }
         }
     }
 

@@ -4,6 +4,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.ranatalal.tmdbexample.dataSource.MovieListDataSource
 import com.ranatalal.tmdbexample.dataSource.SearchListDataSource
+import com.ranatalal.tmdbexample.networks.RetrofitFactory
+import com.ranatalal.tmdbexample.utils.ConstUtils
 import org.koin.dsl.module
 
 val movieRepositryModule = module {
@@ -12,21 +14,10 @@ val movieRepositryModule = module {
 
 class MovieRepositry {
 
+    fun client() = RetrofitFactory.getClient()
 
+    suspend fun getMovieDetail(id:Int) = client().getMovieDetail(id,ConstUtils.API_KEY)
 
-   /* suspend fun getSearchedProducts(searchKeyword: String, pageSize: Int) = Pager(
-        PagingConfig(pageSize = pageSize, enablePlaceholders = false)
-    ) {
-        SearchProductListDataSource(
-            searchKeyword, pageSize, session
-        )
-    }.flow*/
-
-    suspend fun getMovieList() = Pager(
-        PagingConfig(pageSize =10 , enablePlaceholders = false)
-    ) {
-        MovieListDataSource()
-    }.flow
     suspend fun getSearchList(searchKeyword:String) = Pager(
         PagingConfig(pageSize =10 , enablePlaceholders = false)
     ) {

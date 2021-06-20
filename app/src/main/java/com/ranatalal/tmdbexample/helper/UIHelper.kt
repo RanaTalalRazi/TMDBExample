@@ -29,6 +29,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.ranatalal.tmdbexample.R
+import com.ranatalal.tmdbexample.utils.ConstUtils
 import org.koin.dsl.module
 import java.io.File
 import java.io.FileNotFoundException
@@ -650,6 +651,13 @@ class UIHelper {
 
     fun openActivity(activity: Activity, calledActivity: Class<*>) {
         val myIntent = Intent(activity, calledActivity)
+        activity.startActivity(myIntent)
+        activity.overridePendingTransition(R.anim.animation_enter, R.anim.animation_exist)
+    }
+
+    fun openActivityAndMovieId(activity: Activity, calledActivity: Class<*>,id:Int) {
+        val myIntent = Intent(activity, calledActivity)
+        myIntent.putExtra(ConstUtils.ID,id)
         activity.startActivity(myIntent)
         activity.overridePendingTransition(R.anim.animation_enter, R.anim.animation_exist)
     }

@@ -3,4 +3,9 @@
     <string name="no_internet">No internet</string>
     <string name="unexpected_error">An unexpected error has occurred, please try again later</string>
     <string name="retry">Retry</string>
+    <string name="vote_average">vote Average</string>
+    <string name="count">Count</string>
+    <string name="revenue">Revenue</string>
+    <string name="duration">Duration</string>
+    <string name="percentage_sign">%</string>
 </resources>
