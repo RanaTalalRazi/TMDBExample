@@ -48,7 +48,6 @@ class SearchFragment : BaseFragment(), TextWatcher {
     }
 
     private fun initData() {
-        uiHelper.showSoftKeyboard(requireContext(),binding!!.searchBar)
         binding!!.viewModel = movieViewModel
 
         movieViewModel.hasSearchTextClearClick.observe(viewLifecycleOwner) {
@@ -58,8 +57,6 @@ class SearchFragment : BaseFragment(), TextWatcher {
         binding!!.searchBar.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 updatedSubredditFromInput()
-//                uiHelper.hideSoftKeyboard(requireContext(), binding!!.searchBar)
-
                 return@OnEditorActionListener true
             }
             false
@@ -89,8 +86,12 @@ class SearchFragment : BaseFragment(), TextWatcher {
         }
 
         binding!!.recyclerView.adapter = movieListAdapter.withLoadStateHeaderAndFooter(
-            header = MovieLoadStateAdapter(),
-            footer = MovieLoadStateAdapter()
+            header = MovieLoadStateAdapter(listener = {
+                movieListAdapter.refresh()
+            }),
+            footer = MovieLoadStateAdapter(listener = {
+                movieListAdapter.refresh()
+            })
         )
         movieListAdapter.apply {
             listener = { item, position ->
@@ -115,6 +116,13 @@ class SearchFragment : BaseFragment(), TextWatcher {
             binding!!.swipeLayout.isRefreshing = false
 
         }
+
+    }
+
+    override fun onResume() {
+        uiHelper.showSoftKeyboard(requireContext(),binding!!.searchBar)
+
+        super.onResume()
 
     }
 

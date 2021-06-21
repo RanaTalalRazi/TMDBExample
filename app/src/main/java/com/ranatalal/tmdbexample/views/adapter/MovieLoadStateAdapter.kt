@@ -9,9 +9,10 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ranatalal.tmdbexample.R
 import com.ranatalal.tmdbexample.databinding.NetworkStateItemBinding
+import com.ranatalal.tmdbexample.views.models.MovieListResponseModel
 
-class MovieLoadStateAdapter(
-) : LoadStateAdapter<RecyclerView.ViewHolder>() {
+class MovieLoadStateAdapter(var listener: () -> Unit) :
+    LoadStateAdapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, loadState: LoadState) {
         val viewHolder: ViewHolder = holder as ViewHolder
         viewHolder.binding.progressBar.isVisible = loadState is LoadState.Loading
@@ -19,6 +20,9 @@ class MovieLoadStateAdapter(
         viewHolder.binding.errorMsg.isVisible =
             !(loadState as? LoadState.Error)?.error?.message.isNullOrBlank()
         viewHolder.binding.errorMsg.text = (loadState as? LoadState.Error)?.error?.message
+        viewHolder.binding.retryButton.setOnClickListener {
+            listener()
+        }
     }
 
     override fun onCreateViewHolder(

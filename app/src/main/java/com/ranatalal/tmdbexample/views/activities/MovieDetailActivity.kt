@@ -22,15 +22,24 @@ fun loadBackDropImage(view: ImageView, url: String?) {
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(view)
 }
+
 class MovieDetailActivity : BaseActivity() {
     var binding: ActivityMovieDetailBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail)
+        if (savedInstanceState == null) {
+            initData()
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
         initData()
     }
 
     private fun initData() {
+
         movieViewModel.getMovieDetail(intent.getIntExtra(ConstUtils.ID, 0))
 
         movieViewModel.getMovieDetailDataResponse.observe(this, Observer {

@@ -44,9 +44,6 @@ val uiHelperModule = module {
 }
 
 class UIHelper {
-
-
-
     val currentDate: String
         get() = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(Date())
 

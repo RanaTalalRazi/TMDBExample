@@ -27,8 +27,16 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding!!.viewModel = movieViewModel
+        if (savedInstanceState == null) {
+            initData()
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
         initData()
     }
+
 
     @FlowPreview
     private fun initData() {
@@ -55,8 +63,12 @@ class MainActivity : BaseActivity() {
 
 
         binding!!.movieList.adapter = movieListAdapter.withLoadStateHeaderAndFooter(
-            header = MovieLoadStateAdapter(),
-            footer = MovieLoadStateAdapter()
+            header = MovieLoadStateAdapter(listener = {
+                movieListAdapter.refresh()
+            }),
+            footer = MovieLoadStateAdapter(listener = {
+                movieListAdapter.refresh()
+            })
         )
 
         movieViewModel.hasSearchClick.observe(this, {

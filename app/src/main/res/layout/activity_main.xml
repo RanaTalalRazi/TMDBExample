@@ -29,6 +29,7 @@
                 android:onClick="@{()->viewModel.searchClick()}"
                 android:padding="@dimen/min_margin"
                 android:paddingTop="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:paddingBottom="5dp"
                 android:singleLine="true"
                 android:text="Search..."
